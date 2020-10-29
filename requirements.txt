@@ -10,7 +10,6 @@ Flask-PyMongo==2.3.0
 future==0.18.2
 gunicorn==20.0.4
 idna==2.10
-ipython==7.18.1
 ipython-genutils==0.2.0
 itsdangerous==1.1.0
 jedi==0.17.2
@@ -45,7 +44,6 @@ scipy==1.5.3
 six==1.15.0
 threadpoolctl==2.1.0
 tqdm==4.51.0
-traitlets==5.0.5
 twython==3.8.2
 urllib3==1.25.11
 wcwidth==0.2.5

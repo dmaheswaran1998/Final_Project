@@ -4,10 +4,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import re
 from ML import ML
-from twython import Twython
-from wordcloud import WordCloud, STOPWORDS
-from IPython.display import Image as im
-from PIL import Image
 from collections import defaultdict
 import json
 

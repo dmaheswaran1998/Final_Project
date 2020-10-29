@@ -1,0 +1,56 @@
+<html lang="en">
+​
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Player Interaction on the Software</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+​
+<body>
+​
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 jumbotron text-center">
+        <h2>Twitter Sentiment Analysis on Trump</h2>
+        <p>The charts below explore the dataset</p>
+        <p class="btn btn-primary btn-lg" id="btn-twitter" role="button">Press to Update Twitter Data!</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="well">
+          <h5>Trump Analysis</h5>
+          <!-- <select id="selDataset" onchange="optionChanged"></select> -->
+        </div>
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Usernames with highest frequency of Tweets</h3>
+          </div>
+          <div id="sample-metadata" class="panel-body">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div id="bar"></div>
+      </div>
+      <div class="col-md-3">
+        <div id="gauge"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div id="line"></div>
+      </div>
+    </div>
+  </div>
+​
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="static/js/app1.js"></script>
+  <div id="twitter_data"> 
+  </div>
+</body>
+</html>
+

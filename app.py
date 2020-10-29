@@ -1,9 +1,14 @@
 from flask import Flask, render_template, redirect, jsonify
 from flask_pymongo import PyMongo
 import data
+from rq import Queue
+from data import edit 
+from worker import conn
 
 # Create an instance of Flask
 app = Flask(__name__)
+
+
 
 
 # Use flask_pymongo to set up mongo connection
@@ -20,8 +25,9 @@ def index():
 
 @app.route("/twitter_data")
 def twitter_data():
-  
-    return jsonify(data.edit())
+    q= Queue(connection=conn)
+    result = q.enqueue(edit, 'http://heroku.com')
+    return jsonify(result)
 
 if __name__ == "__main__":
     app.run(debug=True)

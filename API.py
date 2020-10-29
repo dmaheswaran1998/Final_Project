@@ -16,7 +16,7 @@ def API():
 
     #first 100 tweets
     try:
-        trump_tweets_1= twitter_api.GetSearch('trump', count = 10, lang='en')
+        trump_tweets_1= twitter_api.GetSearch('trump', count = 100, lang='en')
         id_1=(len(trump_tweets_1))
         id_1=trump_tweets_1[id_1-1].id
 

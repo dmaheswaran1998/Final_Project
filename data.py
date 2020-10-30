@@ -37,6 +37,8 @@ def edit():
 
 
     edited_time_tweets=tweets2.loc[tweets2["date"]==day, ["date", "Created at", "Screen Name", "Tweet Text", "sentiment", "Subject", "Frequency"]]
+    edited_time_tweets=edited_time_tweets.dropna()
+    
     edited=edited_time_tweets.sort_values(by='Created at')
     edited=edited.rename(columns={"Created at": "datetime"})
     edited=edited.drop(columns=['date'])
@@ -64,6 +66,7 @@ def edit():
 
     negative_frequency_trump=negative_frequency.loc[negative_frequency["Subject"]=="Trump", :]
     negative_frequency_andrews=negative_frequency.loc[negative_frequency["Subject"]=="Andrews", :]
+
 
     only_negative_andrews=negative_frequency_andrews.resample('1H', on='datetime').sum()
     only_negative_andrews=only_negative_andrews.reset_index()

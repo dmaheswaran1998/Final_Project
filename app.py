@@ -11,7 +11,7 @@ from worker import conn
 app = Flask(__name__)
 
 
-q=Queue(connection=Conn)
+q=Queue(connection=conn)
 
 
 # Use flask_pymongo to set up mongo connection
@@ -32,4 +32,4 @@ def twitter_data():
     return jsonify(result)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True)s

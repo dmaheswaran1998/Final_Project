@@ -18,8 +18,10 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 from sklearn.linear_model import LogisticRegression
 
-def ML():
-    training_reviews=pd.read_csv("data/IMDB2.csv",  encoding='latin-1')
+from joblib import dump, load
+
+def build_model():
+    training_reviews=pd.read_csv("data/IMDB_Dataset.csv",  encoding='latin-1')
 
     #editing the training review column
 
@@ -34,8 +36,6 @@ def ML():
         #removing punctuation 
         
         edited_review=re.sub("([.;:!\'?,\"()\[\]])","", edited_review)
-
-        
         
         #removing the <br / br>
         
@@ -46,6 +46,8 @@ def ML():
     tfidfconverter = TfidfVectorizer(max_features=2000, min_df=5, max_df=0.7, stop_words=stopwords.words('english'))  
     X = tfidfconverter.fit_transform(edited_text).toarray()
 
+    dump(tfidfconverter, "tfidfconverter.joblib")
+
     y=training_reviews['sentiment'].to_list()
 
 
@@ -53,7 +55,16 @@ def ML():
 
     sentiment_regression_classifier=LogisticRegression()
     sentiment_regression_classifier.fit(X_train, y_train)
+
+    dump(sentiment_regression_classifier, "sentiment_regression_classifier.joblib")
+
     linear_predictions = sentiment_regression_classifier.predict(X_test)
+
+
+def ML():
+
+    tfidfconverter = load("tfidfconverter.joblib")
+    sentiment_regression_classifier = load("sentiment_regression_classifier.joblib")
 
     tweet_df=API()
     ##trump_df=pd.read_csv("Trump_tweets_scraped.csv")
@@ -102,12 +113,13 @@ def ML():
     
     tweet_df["sentiment"]=sentiment_list_edited
 
-    ##trump_df.to_csv("trump_tweets_classified.csv")
+    tweet_df.to_csv("tweet_df.csv")
 
     return tweet_df    
 
-
-        
+if __name__ == "__main__":
+    build_model()
+    ML()
 
 
 

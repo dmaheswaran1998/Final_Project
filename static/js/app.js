@@ -4,7 +4,11 @@
   
 //     updating the dropdown menu
 
+var selector=d3.select("#selDataset");
+
 d3.select("#btn-twitter").on("click",updateData);
+
+d3.select("#selDataset").on("change", optionChanged);
 
 function updateData() {
 
@@ -24,9 +28,9 @@ function updateData() {
         }
     
     
-        initial_tweet_text=data[2].Trump;
-        initial_tweet_sentiment=data[1].Trump;
-        initial_tweet_time=data[0].Trump;
+        initial_tweet_text=data[2].Andrews;
+        initial_tweet_sentiment=data[1].Andrews;
+        initial_tweet_time=data[0].Andrews;
     
         updatePanel(initial_tweet_text);
         updateBar(initial_tweet_sentiment);
@@ -39,7 +43,7 @@ function updateData() {
     
 }
 
-d3.select("#selDataset").on("change", optionChanged);
+
   
 function optionChanged() {
     var selector=d3.select("#selDataset");
@@ -173,8 +177,6 @@ function updateLine(newdata){
         x: time,
         y: frequency_pos,
         type: 'scatter',
-        mode: 'markers',
-        mode: 'markers',
         name: 'Positive Sentiment',
         line: {
             color: 'rgba(0, 230, 64, 1)',
@@ -210,8 +212,4 @@ function updateLine(newdata){
 
     Plotly.newPlot('line', data, layout);
 }
-
-updateData();
-
-
 

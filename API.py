@@ -16,89 +16,90 @@ def API():
 
     #first 100 tweets
     try:
-        trump_tweets_1= twitter_api.GetSearch('trump', count = 10, lang='en')
+        trump_tweets_1= twitter_api.GetSearch('trump', count = 30, lang='en')
         id_1=(len(trump_tweets_1))
         id_1=trump_tweets_1[id_1-1].id
 
     except:
         print("there is an error")
 
-#    second 100 tweets
-#     try:
-#         trump_tweets_2= twitter_api.GetSearch('trump', max_id=id_1-1, count = 100, lang='en')
-#         id_2=(len(trump_tweets_2))
-#         id_2=trump_tweets_2[id_2-1].id
 
-#     except:
-#         print("there is an error")     
 
-#     third 100 tweets
-#     try:
-#         trump_tweets_3= twitter_api.GetSearch('trump', max_id=id_2-1, count = 100, lang='en')
-#         id_3=(len(trump_tweets_3))
-#         id_3=trump_tweets_3[id_3-1].id
-
-#     except:
-#         print("there is an error")    
-
-#         fourth 100 tweets
-#     try:
-#         trump_tweets_4= twitter_api.GetSearch('trump', max_id=id_3-1, count = 100, lang='en')
-#         id_4=(len(trump_tweets_4))
-#         id_4=trump_tweets_4[id_4-1].id
-
-#     except:
-#         print("there is an error")
-
-#         fifth 100 tweets
-#     try:
-#         trump_tweets_5= twitter_api.GetSearch('trump', max_id=id_4-1, count = 100, lang='en')
-#         id_5=(len(trump_tweets_5))
-#         id_5=trump_tweets_5[id_5-1].id
-
-#     except:
-#         print("there is an error")
-
-#         sixth 100 tweets
-#     try:
-#         trump_tweets_6= twitter_api.GetSearch('trump', max_id=id_5-1, count = 100, lang='en')
-#         id_6=(len(trump_tweets_6))
-#         id_6=trump_tweets_5[id_6-1].id
-
-#     except:
-#         print("there is an error")
 
     trump_tweets=trump_tweets_1
 
-    text_tweets=[]
-    tweet_id=[]
-    tweet_screenname=[]
-    tweet_time=[]
+    
+    trump_text_tweets=[]
+    trump_tweet_id=[]
+    trump_tweet_screenname=[]
+    trump_tweet_time=[]
+    trump_tweet_subject=[]
+
     for x in range(0,len(trump_tweets)):
-    #getting text language
         text=trump_tweets[x].text
-        text_tweets.append(text)
-        
-        #getting tweet id
+        trump_text_tweets.append(text)
+
+            #getting tweet id
         id=trump_tweets[x].id
-        tweet_id.append(id)
-        
-        #getting tweet handle 
+        trump_tweet_id.append(id)
+
+            #getting tweet handle 
         name=trump_tweets[x].user.screen_name
-        tweet_screenname.append(name)
-        
-        #getting tweet time:
+        trump_tweet_screenname.append(name)
+
+            #getting tweet time:
         time=trump_tweets[x].created_at
-        tweet_time.append(time)
-
-        trump_tweets_df=pd.DataFrame({'id': tweet_id, 'Created at' : tweet_time, 'Screen Name': tweet_screenname, "Tweet Text": text_tweets})
-
-        #dropping tweets that have duplicate text
-        trump_tweets_df=trump_tweets_df.drop_duplicates(subset=['Tweet Text'])
+        trump_tweet_time.append(time)
+        
+        trump="Trump"
+        trump_tweet_subject.append(trump)
+    
 
         # trump_tweets_df.to_csv("Trump_tweets_scraped.csv")
+    try:
+        andrews_tweets_1= twitter_api.GetSearch('dan andrews', count = 30, lang='en')
 
-    return trump_tweets_df        
+    except:
+        print("there is an error")
+
+    andrews_tweets=andrews_tweets_1
+
+    andrews_text_tweets=[]
+    andrews_tweet_id=[]
+    andrews_tweet_screenname=[]
+    andrews_tweet_time=[]
+    andrews_tweet_subject=[]
+    for x in range(0,len(andrews_tweets)):
+        text=andrews_tweets[x].text
+        andrews_text_tweets.append(text)
+
+            #getting tweet id
+        id=andrews_tweets[x].id
+        andrews_tweet_id.append(id)
+
+            #getting tweet handle 
+        name=andrews_tweets[x].user.screen_name
+        andrews_tweet_screenname.append(name)
+
+            #getting tweet time:
+        time=andrews_tweets[x].created_at
+        andrews_tweet_time.append(time)
+        
+        andrews="Andrews"
+        andrews_tweet_subject.append(andrews)
+
+    text_tweets=trump_text_tweets+andrews_text_tweets
+    tweet_id=trump_tweet_id+andrews_tweet_id
+    tweet_screenname=trump_tweet_screenname+andrews_tweet_screenname
+    tweet_time=trump_tweet_time+andrews_tweet_time
+    tweet_subject=trump_tweet_subject+andrews_tweet_subject  
+
+    tweets_df=pd.DataFrame({"id":tweet_id, "Created at":tweet_time, "Screen Name":tweet_screenname, "Tweet Text":text_tweets, "Subject":tweet_subject})
+
+    tweets_df=tweets_df.drop_duplicates(subset=['Tweet Text'])
+
+
+    return tweets_df        
 
 
 

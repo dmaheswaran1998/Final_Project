@@ -4,6 +4,8 @@
   
 //     updating the dropdown menu
 
+var selector=d3.select("#selDataset");
+
 d3.select("#btn-twitter").on("click",updateData);
 
 function updateData() {
@@ -24,9 +26,9 @@ function updateData() {
         }
     
     
-        initial_tweet_text=data[2].Trump;
-        initial_tweet_sentiment=data[1].Trump;
-        initial_tweet_time=data[0].Trump;
+        initial_tweet_text=data[2].Andrews;
+        initial_tweet_sentiment=data[1].Andrews;
+        initial_tweet_time=data[0].Andrews;
     
         updatePanel(initial_tweet_text);
         updateBar(initial_tweet_sentiment);
@@ -210,8 +212,6 @@ function updateLine(newdata){
 
     Plotly.newPlot('line', data, layout);
 }
-
-updateData();
 
 
 

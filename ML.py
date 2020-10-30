@@ -55,20 +55,20 @@ def ML():
     sentiment_regression_classifier.fit(X_train, y_train)
     linear_predictions = sentiment_regression_classifier.predict(X_test)
 
-    trump_df=API()
+    tweet_df=API()
     ##trump_df=pd.read_csv("Trump_tweets_scraped.csv")
 
 
     #cleaning up the trump tweets:
-    trump = trump_df['Tweet Text'].to_list()
-    trump_text=[]
+    tweet_text = tweet_df['Tweet Text'].to_list()
+    edited_text=[]
     sentiment_list=[]
 
     #Lowercase tweets
-    for tweet in range (0, len(trump)):
+    for tweet in range (0, len(tweet_text)):
         #lower case
         #removing speocial cahracters
-        edited_tweet = re.sub(r'\W', ' ', str(trump[tweet]))
+        edited_tweet = re.sub(r'\W', ' ', str(tweet_text[tweet]))
     
         # remove sinflue
         edited_tweet = re.sub(r'\s+[a-zA-Z]\s+', ' ', edited_tweet)
@@ -87,12 +87,12 @@ def ML():
         
         edited_tweet=edited_tweet.lower()
         
-        trump_text.append(edited_tweet) 
+        edited_text.append(edited_tweet) 
         
         sentiment_trump = sentiment_regression_classifier.predict(tfidfconverter.transform([edited_tweet]).toarray())
         sentiment_list.append(sentiment_trump)
 
-        sentiment_list_edited=[]
+    sentiment_list_edited=[]
 
     for item in sentiment_list:
         if "positive" in item:
@@ -100,11 +100,11 @@ def ML():
         else:
             sentiment_list_edited.append("negative")
     
-    trump_df["sentiment"]=sentiment_list_edited
+    tweet_df["sentiment"]=sentiment_list_edited
 
     ##trump_df.to_csv("trump_tweets_classified.csv")
 
-    return trump_df    
+    return tweet_df    
 
 
         

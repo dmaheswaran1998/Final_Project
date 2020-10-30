@@ -19,7 +19,7 @@ from sklearn.metrics import classification_report, confusion_matrix, accuracy_sc
 from sklearn.linear_model import LogisticRegression
 
 def ML():
-    training_reviews=pd.read_csv("data/IMDB_Dataset.csv",  encoding='latin-1')
+    training_reviews=pd.read_csv("data/IMDB2.csv",  encoding='latin-1')
 
     #editing the training review column
 

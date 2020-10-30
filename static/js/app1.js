@@ -16,15 +16,15 @@ function updateData() {
         var negative_time=data[0].negative;
         var positive_time=data[0].positive;
         var sentiment=data[1];
-        var frequency_tweets=data[2].Frequency;
+        var example_tweets=data[2].trump_tweets;
         
     
-        updatePanel(frequency_tweets);
+        updatePanel(example_tweets);
         updateBar(sentiment);
         updateLine(negative_time, positive_time);
         
     
-        console.log(frequency_tweets);
+    
             
     });
     
@@ -108,14 +108,17 @@ function updateLine(negative, positive){
     var trace1 = {
         x: time,
         y: frequency_pos,
-        type: 'scatter'
+        type: 'scatter',
+        name: 'Positive Sentiment'
     };
       
     var trace2 = {
         x: time,
         y: frequency_neg,
-        type: 'scatter'
+        type: 'scatter',
+        name: 'Negative Sentiment'
     };
+
 
     var data = [trace1, trace2];
 
@@ -123,5 +126,6 @@ function updateLine(negative, positive){
 }
 
 updateData();
+
 
 

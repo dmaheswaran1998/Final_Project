@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import re
 from ML import ML
 from collections import defaultdict
+from wordcloud import WordCloud, STOPWORDS
 import json
 
 def negative_tweets(dataset):
@@ -127,18 +128,18 @@ def edit():
     percentage_dict=percentage_sentiment.to_dict()
     json_list.append(percentage_dict)
 
-    frequent_twitters=sentiment = trump2.groupby("Screen Name")["Frequency"].count()
+    example=trump2.head(5)
 
-    frequent_twitters=pd.DataFrame(frequent_twitters)
-    frequency_sort=frequent_twitters.sort_values(by='Frequency', ascending=False).head(50)
-    frequent_users=pd.DataFrame(frequency_sort.loc[frequency_sort["Frequency"]>1,])
+    screen_name=example["Screen Name"].to_list()
+    tweet_text=example["Tweet Text"].to_list()
 
-    #editing the time column string and converting it into date and time
-    frequent_users=frequent_users.to_dict('dict')
-    json_list.append(frequent_users)
+    res = {screen_name[i]: tweet_text[i] for i in range(len(screen_name))}
+
+    trump_dict={"trump_tweets":res}
+
+    json_list.append(trump_dict)
 
     return json_list    
-
 
 
 

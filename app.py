@@ -32,4 +32,4 @@ def twitter_data():
     return jsonify(result)
 
 if __name__ == "__main__":
-    app.run(debug=True)s
+    app.run(debug=True)

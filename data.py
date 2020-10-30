@@ -3,46 +3,9 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import re
-from ML import ML
 from collections import defaultdict
-from wordcloud import WordCloud, STOPWORDS
 import json
-
-def negative_tweets(dataset):
-    negative=dataset.loc[dataset['sentiment'] == "negative", ['Tweet Text']]
-    negative_list=negative["Tweet Text"].to_list()
-    return negative_list
-
-
-def positive_tweets(dataset):
-    positive=dataset.loc[dataset['sentiment'] == "positive", ['Tweet Text']]
-    positive_list=positive["Tweet Text"].to_list()
-    return positive_list
-
-
-def edit_tweets(trump_tweets):
-    trump_tweets = ''.join(trump_tweets)
-    no_links = re.sub(r'http\S+', '', trump_tweets)
-    no_unicode = re.sub(r"\\[a-z][a-z]?[0-9]+", '', no_links)
-    no_special_characters = re.sub('[^A-Za-z ]+', '', no_unicode)
-    
-    words = no_special_characters.split(" ")
-    words = [w for w in words if len(w) > 2]  # ignore a, an, be, ...
-    words = [w.lower() for w in words]
-    words = [w for w in words if w not in STOPWORDS]
-    
-    return(words)   
-
-
-def remove_name(words):
-    edited_word=[]
-    for word in words:
-        if ('donald')not in word:
-            word1=word
-        if ('trump')not in word1:
-            edited_word.append(word1)
-    return edited_word       
-
+from ML import ML
 
 def edit():
     json_list=[]
@@ -113,13 +76,6 @@ def edit():
                 nested = nested[key] 
 
     json_list.append(results1)
-
-
-    trump_negative_list=negative_tweets(trump2)
-    trump_positive_list=positive_tweets(trump2)
-
-    positive1=edit_tweets(trump_positive_list)
-    positive2=remove_name(positive1)
 
     sentiment = trump2.groupby("sentiment")["Frequency"].count()
     total_sentiment=trump2["sentiment"].count()

@@ -31,7 +31,6 @@ function updateData() {
 function init() {
 
     d3.json("/twitter_data").then(function(data) {
-        console.log(data);
 
         tweet_text=data[2];
         tweet_sentiment=data[1];
@@ -287,4 +286,3 @@ function updateLine(newdata){
 
 
 init();
-//updateData();

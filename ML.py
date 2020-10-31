@@ -113,8 +113,6 @@ def ML():
     
     tweet_df["sentiment"]=sentiment_list_edited
 
-    tweet_df.to_csv("data/tweet_df.csv")
-
     return tweet_df    
 
 if __name__ == "__main__":

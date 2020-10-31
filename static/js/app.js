@@ -8,47 +8,132 @@ var selector=d3.select("#selDataset");
 
 d3.select("#btn-twitter").on("click",updateData);
 
-d3.select("#selDataset").on("change", optionChanged);
+
+
+
 
 function updateData() {
 
+    d3.json("/twitter_data").then(function(data) {
+        console.log(data);
+        optionChanged();
+
+
+    });
+
 
     
+
+
+            
+}
+
+function init() {
 
     d3.json("/twitter_data").then(function(data) {
         console.log(data);
-        leaders=data[0];
+
+        tweet_text=data[2];
+        tweet_sentiment=data[1];
+        tweet_time=data[0];
+        
+        selector.html("");
+        leaders=data[0]
         for (const [key] of Object.entries(leaders)) {
-            selector
-            .append("option")
-            .append("value")
-            .text(`${key}`)
-            .property("value", name)
+                selector
+                .append("option")
+                .append("value")
+                .text(`${key}`)
+                .property("value", name)
+                
+        };
+
+        var dropdown_value = selector.property("value");
+
+        for (const [key, value] of Object.entries(tweet_text)) {
+            if (key==dropdown_value){
+                
+                
+                var name=value;
+
+                updatePanel(name)
+
+            }    
+        
+        }
+
+        for (const [key, value] of Object.entries(tweet_sentiment)) {
+            if (key==dropdown_value){
+                
+                var sentiment=value;
+
+                updateBar(sentiment);
+
+            }  
+        
             
         }
+        
+        for (const [key, value] of Object.entries(tweet_time)) {
+            if (key==dropdown_value){
+                
+                var time=value;
+
+
+
+                updateLine(time);
+
+            }  
+           
+            
+        }
+      
+
+
+    });    
+
+
     
     
-        initial_tweet_text=data[2].Andrews;
-        initial_tweet_sentiment=data[1].Andrews;
-        initial_tweet_time=data[0].Andrews;
+        
+        
+            
+     
+     
     
-        updatePanel(initial_tweet_text);
-        updateBar(initial_tweet_sentiment);
-        updateLine(initial_tweet_time);
+
+        
+           
+            
+
+        
+          
+        
+          
+            
+
+
+      
+    
+       
         
     
     
             
-    });
+
+
+
     
 }
 
 
-  
+d3.select("#selDataset").on("change", optionChanged);
+
 function optionChanged() {
-    var selector=d3.select("#selDataset");
+    
+    
   //Assign the value of the dropdown menu option to a variable
-    var dropdown_value = selector.property("value");
+  var dropdown_value = selector.property("value");
 
     d3.json("/twitter_data").then(function(data) {
         tweet_text=data[2];
@@ -79,20 +164,7 @@ function optionChanged() {
             
         }
         
-        for (const [key, value] of Object.entries(tweet_time)) {
-            if (key==dropdown_value){
-                
-                var time=value;
-
-
-
-                updateLine(time);
-
-            }  
-           
-            
-        }
-    
+       
     });   
     
 
@@ -213,3 +285,6 @@ function updateLine(newdata){
     Plotly.newPlot('line', data, layout);
 }
 
+
+init();
+//updateData();

@@ -16,7 +16,7 @@ def API():
 
     #first 100 tweets
     try:
-        trump_tweets_1= twitter_api.GetSearch('trump', count = 30, lang='en')
+        trump_tweets_1= twitter_api.GetSearch('trump', count = 40, lang='en')
         id_1=(len(trump_tweets_1))
         id_1=trump_tweets_1[id_1-1].id
 
@@ -57,7 +57,7 @@ def API():
 
         # trump_tweets_df.to_csv("Trump_tweets_scraped.csv")
     try:
-        andrews_tweets_1= twitter_api.GetSearch('dan andrews', count = 30, lang='en')
+        andrews_tweets_1= twitter_api.GetSearch('dan andrews', count = 40, lang='en')
 
     except:
         print("there is an error")
